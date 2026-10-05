@@ -57,9 +57,9 @@
     "stylelint": "^17.0.0",
     "stylelint-config-standard-scss": "^17.0.0",
     "typescript": "7.0.2",
-    "vite": "catalog:",
-    "vite-plus": "catalog:",
-    "vitest": "catalog:"
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.0.0",
+    "vite-plus": "1.0.0",
+    "vitest": "5.0.1"
   },
   "resolutions": {
     "vite": "npm:@voidzero-dev/vite-plus-core@1.0.0",
