@@ -7,7 +7,10 @@ export const minus60Years = (iso: string) => `${Number(iso.slice(0, 4)) - 60}${i
 
 export const assessmentSchema = z
   .object({
-    mrn: z.string().trim().regex(/^MRN-\d{6}$/, { error: 'Must look like MRN-004821' }),
+    mrn: z
+      .string()
+      .trim()
+      .regex(/^MRN-\d{6}$/, { error: 'Must look like MRN-004821' }),
     patientName: z
       .string()
       .trim()
@@ -37,19 +40,13 @@ export const assessmentSchema = z
     (d) => !d.dateOfBirth || !d.assessmentDate || d.dateOfBirth <= minus60Years(d.assessmentDate),
     { error: 'This pathway is for patients aged 60 and over', path: ['dateOfBirth'] }
   )
-  .refine(
-    (d) => !d.followUpDate || !d.assessmentDate || d.followUpDate > d.assessmentDate,
-    {
-      error: 'Next review must be after the assessment date',
-      path: ['followUpDate'],
-    }
-  )
-  .refine(
-    (d) => d.medicationCount < 5 || d.pharmacistReviewRequested === true,
-    {
-      error: 'Five or more medications is polypharmacy: a pharmacist review is required',
-      path: ['pharmacistReviewRequested'],
-    }
-  );
+  .refine((d) => !d.followUpDate || !d.assessmentDate || d.followUpDate > d.assessmentDate, {
+    error: 'Next review must be after the assessment date',
+    path: ['followUpDate'],
+  })
+  .refine((d) => d.medicationCount < 5 || d.pharmacistReviewRequested === true, {
+    error: 'Five or more medications is polypharmacy: a pharmacist review is required',
+    path: ['pharmacistReviewRequested'],
+  });
 
 export type Assessment = z.infer<typeof assessmentSchema>;
