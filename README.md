@@ -7,7 +7,7 @@ A single-page Geriatric Care Assessment form built with **React 19**, **TypeScri
 ## Live Demo & Deployment
 
 - **Deployment URL**: *(Deploy on Vercel / Netlify / GitHub Pages and insert live URL here)*
-- **Repository**: Public Git repository with atomic commit history.
+- **Repository**: [https://github.com/civdix/Assignment-manufac](https://github.com/civdix/Assignment-manufac)
 
 ---
 
