@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import {
+  ActionIcon,
   Alert,
   Button,
   Checkbox,
@@ -14,6 +15,7 @@ import {
   Text,
   TextInput,
   Title,
+  Tooltip,
 } from '@mantine/core';
 import { DateInput } from '@mantine/dates';
 import { schemaResolver, useForm } from '@mantine/form';
@@ -33,6 +35,27 @@ export const mobilityOptions = MOBILITY.map((value) => ({
 
 export interface AssessmentFormProps {
   onSave?: (data: Assessment) => Promise<void> | void;
+}
+
+// Accessible clinical info tooltip button for medical terminology and requirements
+function InfoButton({ tooltip }: { tooltip: string }) {
+  return (
+    <Tooltip label={tooltip} multiline w={280} withArrow position="top-start">
+      <ActionIcon
+        variant="subtle"
+        color="gray"
+        size="xs"
+        radius="xl"
+        aria-label="Clinical information"
+        tabIndex={-1}
+        style={{ verticalAlign: 'middle', display: 'inline-flex' }}
+      >
+        <span style={{ fontSize: 11, fontWeight: 700, fontStyle: 'italic', fontFamily: 'serif' }}>
+          i
+        </span>
+      </ActionIcon>
+    </Tooltip>
+  );
 }
 
 export function AssessmentForm({ onSave }: AssessmentFormProps) {
@@ -83,7 +106,12 @@ export function AssessmentForm({ onSave }: AssessmentFormProps) {
         <form onSubmit={form.onSubmit(handleSubmit)} noValidate>
           <Stack gap="md">
             <TextInput
-              label="Medical record number"
+              label={
+                <Group gap={4} wrap="nowrap" align="center">
+                  <span>Medical record number</span>
+                  <InfoButton tooltip="Unique patient identifier formatted as MRN followed by 6 digits (e.g. MRN-004821)." />
+                </Group>
+              }
               placeholder="MRN-004821"
               withAsterisk
               key={form.key('mrn')}
@@ -98,7 +126,12 @@ export function AssessmentForm({ onSave }: AssessmentFormProps) {
             />
 
             <DateInput
-              label="Date of birth"
+              label={
+                <Group gap={4} wrap="nowrap" align="center">
+                  <span>Date of birth</span>
+                  <InfoButton tooltip="This geriatric care pathway is for patients aged 60 and over. Age is calculated relative to the assessment visit date." />
+                </Group>
+              }
               valueFormat="YYYY-MM-DD"
               withAsterisk
               key={form.key('dateOfBirth')}
@@ -106,7 +139,12 @@ export function AssessmentForm({ onSave }: AssessmentFormProps) {
             />
 
             <DateInput
-              label="Assessment date"
+              label={
+                <Group gap={4} wrap="nowrap" align="center">
+                  <span>Assessment date</span>
+                  <InfoButton tooltip="Date of the nurse home visit. Capped at today to support current or backdated visits." />
+                </Group>
+              }
               valueFormat="YYYY-MM-DD"
               maxDate={today}
               withAsterisk
@@ -115,7 +153,12 @@ export function AssessmentForm({ onSave }: AssessmentFormProps) {
             />
 
             <Select
-              label="Mobility"
+              label={
+                <Group gap={4} wrap="nowrap" align="center">
+                  <span>Mobility</span>
+                  <InfoButton tooltip="Patient's primary ambulation capability (Independent, Cane, Walker, Wheelchair, or Bedbound)." />
+                </Group>
+              }
               placeholder="Select mobility status"
               data={mobilityOptions}
               withAsterisk
@@ -125,7 +168,12 @@ export function AssessmentForm({ onSave }: AssessmentFormProps) {
             />
 
             <NumberInput
-              label="Barthel Index"
+              label={
+                <Group gap={4} wrap="nowrap" align="center">
+                  <span>Barthel Index</span>
+                  <InfoButton tooltip="Measures independence in activities of daily living (feeding, bathing, grooming, dressing, bowels, bladder, toilet use, transfers, mobility, stairs). Scored in increments of 5 from 0 to 100. Higher score indicates greater independence." />
+                </Group>
+              }
               description="Score ranges from 0 to 100 in steps of 5"
               step={5}
               min={0}
@@ -137,7 +185,12 @@ export function AssessmentForm({ onSave }: AssessmentFormProps) {
             />
 
             <NumberInput
-              label="Regular medications"
+              label={
+                <Group gap={4} wrap="nowrap" align="center">
+                  <span>Regular medications</span>
+                  <InfoButton tooltip="Number of regular prescribed medications. Five or more medications defines clinical polypharmacy and mandates a pharmacist review." />
+                </Group>
+              }
               description="Total number of regular medications (0 to 30)"
               min={0}
               max={30}
@@ -148,13 +201,23 @@ export function AssessmentForm({ onSave }: AssessmentFormProps) {
             />
 
             <Checkbox
-              label="Pharmacist review requested"
+              label={
+                <Group gap={4} wrap="nowrap" align="center">
+                  <span>Pharmacist review requested</span>
+                  <InfoButton tooltip="Mandatory review triggered when regular medication count is 5 or more (polypharmacy) to evaluate drug interaction and fall risks." />
+                </Group>
+              }
               key={form.key('pharmacistReviewRequested')}
               {...form.getInputProps('pharmacistReviewRequested', { type: 'checkbox' })}
             />
 
             <DateInput
-              label="Next review date"
+              label={
+                <Group gap={4} wrap="nowrap" align="center">
+                  <span>Next review date</span>
+                  <InfoButton tooltip="Scheduled follow-up home visit; must occur chronologically after the current assessment date." />
+                </Group>
+              }
               valueFormat="YYYY-MM-DD"
               withAsterisk
               key={form.key('followUpDate')}
@@ -162,7 +225,12 @@ export function AssessmentForm({ onSave }: AssessmentFormProps) {
             />
 
             <Checkbox
-              label="Patient or representative has given consent"
+              label={
+                <Group gap={4} wrap="nowrap" align="center">
+                  <span>Patient or representative has given consent</span>
+                  <InfoButton tooltip="Explicit consent must be obtained from the patient or legal surrogate before health data can be saved." />
+                </Group>
+              }
               key={form.key('consentObtained')}
               {...form.getInputProps('consentObtained', { type: 'checkbox' })}
             />

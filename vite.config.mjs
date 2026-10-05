@@ -5,6 +5,9 @@ import { defineConfig, lazyPlugins } from 'vite-plus';
 
 export default defineConfig({
   base: './',
+  build: {
+    chunkSizeWarningLimit: 1000,
+  },
   fmt: {
     ...oxfmt,
     ignorePatterns: [
