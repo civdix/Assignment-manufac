@@ -1042,7 +1042,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/dates@npm:^9.6.3":
+"@mantine/dates@npm:9.6.3":
   version: 9.6.3
   resolution: "@mantine/dates@npm:9.6.3"
   dependencies:
@@ -1057,7 +1057,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mantine/form@npm:^9.6.3":
+"@mantine/form@npm:9.6.3":
   version: 9.6.3
   resolution: "@mantine/form@npm:9.6.3"
   dependencies:
@@ -4533,8 +4533,8 @@ __metadata:
   resolution: "mantine-vite-template@workspace:."
   dependencies:
     "@mantine/core": "npm:9.6.3"
-    "@mantine/dates": "npm:^9.6.3"
-    "@mantine/form": "npm:^9.6.3"
+    "@mantine/dates": "npm:9.6.3"
+    "@mantine/form": "npm:9.6.3"
     "@mantine/hooks": "npm:9.6.3"
     "@storybook/addon-themes": "npm:^10.0.0"
     "@storybook/react": "npm:^10.0.0"
